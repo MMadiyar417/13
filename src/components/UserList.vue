@@ -1,23 +1,12 @@
 <script setup>
-import { computed, ref, watch } from 'vue';
-
-const userList = ref([])
-const selectedUser = ref(null);
-
-   fetch('https://jsonplaceholder.typicode.com/users')
-  .then((response) => response.json())
-  .then((json) => userList.value = json)
-
-  const selectUser = (user) => {
-  selectedUser.value = user;
-};
-
+const props = defineProps ({
+  users: Array,
+})
 </script>
-
 <template>
-
+  
     <ul  >
-      <li v-for="user in userList" @click="selectUser(user)">{{ user.username }}</li>
+      <li v-for="user in users" @click="$emit('userSelected', user)">{{ user.username }}</li>
     </ul >
 
 </template>
